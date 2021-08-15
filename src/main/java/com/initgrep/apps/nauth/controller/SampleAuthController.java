@@ -12,10 +12,16 @@ import java.util.Map;
 @RequestMapping("/api/v1/sample")
 public class SampleAuthController {
 
-    @GetMapping("/message/{message}")
-    public Map<String, String> getMessage(@PathVariable String message){
-        System.out.println("message -> "+message);
-        System.out.println("another message");
-        return Collections.singletonMap("message", message);
-    }
+  @GetMapping("/message/{message}")
+  public Map<String, String> getMessage(@PathVariable String message) {
+    System.out.println("message -> " + message);
+    System.out.println("another message");
+    return Collections.singletonMap("message", message);
+  }
+
+  @GetMapping("/error")
+  public String error() {
+    return "error happened";
+  }
+
 }

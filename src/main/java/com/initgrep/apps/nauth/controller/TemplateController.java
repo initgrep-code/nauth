@@ -15,4 +15,9 @@ public class TemplateController {
   public String logout() {
     return "logout";
   }
+
+  @GetMapping("/home")
+  public String home() {
+    return "home";
+  }
 }

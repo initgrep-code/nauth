@@ -4,7 +4,10 @@
   <title>Please Log In</title>
 </head>
 <body>
+
 <h1>Please Log In</h1>
+<div th:if="${param.error}">
+  Invalid username and password.</div>
 <form th:action="@{/login}" method="post">
   <div>
     <input type="text" name="username" placeholder="Username"/>

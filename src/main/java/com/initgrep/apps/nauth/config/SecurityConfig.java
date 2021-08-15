@@ -16,7 +16,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .anyRequest().authenticated()
       .and()
       .formLogin().loginPage("/login").permitAll()
-//      .defaultSuccessUrl()
+      .successHandler(((request, response, authentication) -> {
+        //Log the loggedIn user
+        System.out.println("LoggedIn user " + authentication.getPrincipal());
+      }))
+      .failureHandler((request, response, exception) -> {
+        //log exception message
+        System.err.println("Login failed ->" + exception.getMessage());
+      })
       .and()
       .logout().logoutUrl("/logout");
   }
