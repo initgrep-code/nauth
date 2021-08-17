@@ -1,9 +1,11 @@
 package com.initgrep.apps.nauth.config;
 
+import com.initgrep.apps.nauth.jpa.JpaUserDetailsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +21,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
-  private JpaAuthUserDetailsService jpaAuthUserDetailsService;
+  private JpaUserDetailsManager jpaAuthUserDetailsService;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -37,7 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         System.err.println("Login failed ->" + exception.getMessage());
       })
       .and()
-      .logout().logoutUrl("/logout");
+      .logout().logoutUrl("/logout")
+      .and()
+      .oauth2Login(Customizer.withDefaults());
   }
 
   @Override
@@ -62,7 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return daoAuthenticationProvider;
   }
 
-  @Bean
   public UserDetailsService inMemoryUserDetailsService() {
     UserDetails user1 = User.builder()
       .username("user1")

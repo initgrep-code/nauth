@@ -1,7 +1,7 @@
 package com.initgrep.apps.nauth;
 
-import com.initgrep.apps.nauth.config.AuthGrantedAuthorityRepository;
-import com.initgrep.apps.nauth.config.AuthUserDetailsRepository;
+import com.initgrep.apps.nauth.jpa.AuthGrantedAuthorityRepository;
+import com.initgrep.apps.nauth.jpa.AuthUserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +25,8 @@ public class DBInitializerConfig {
   public CommandLineRunner initializeJpaData() {
     return (args)->{
       System.out.println("application started");
+
+      //uncomment if required
 
 //      AuthUserDetails user2 = new AuthUserDetails();
 //      user2.setUsername("user2");

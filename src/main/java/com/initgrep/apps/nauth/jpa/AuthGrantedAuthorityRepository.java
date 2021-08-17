@@ -1,4 +1,4 @@
-package com.initgrep.apps.nauth.config;
+package com.initgrep.apps.nauth.jpa;
 
 import com.initgrep.apps.nauth.jpa.AuthGrantedAuthority;
 import org.springframework.data.jpa.repository.JpaRepository;
