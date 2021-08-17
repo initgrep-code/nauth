@@ -86,4 +86,16 @@ public class AuthUserDetails implements UserDetails {
     this.authorities = authorities;
   }
 
+  @Override
+  public String toString() {
+    return "AuthUserDetails{" +
+      "id=" + id +
+      ", username='" + username + '\'' +
+      ", password='" + password + '\'' +
+      ", accountNonExpired=" + accountNonExpired +
+      ", accountNonLocked=" + accountNonLocked +
+      ", credentialsNonExpired=" + credentialsNonExpired +
+      ", enabled=" + enabled +
+      '}';
+  }
 }

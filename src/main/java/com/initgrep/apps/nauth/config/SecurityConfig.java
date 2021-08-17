@@ -39,13 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         System.err.println("Login failed ->" + exception.getMessage());
       })
       .and()
-      .logout().logoutUrl("/logout")
-      .and()
-      .oauth2Login(Customizer.withDefaults());
+      .logout().logoutUrl("/logout");
   }
 
   @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  protected void configure(AuthenticationManagerBuilder auth) {
     auth.authenticationProvider(inMemoryDaoAuthenticationProvider());
     auth.authenticationProvider(jpaDaoAuthenticationProvider());
   }

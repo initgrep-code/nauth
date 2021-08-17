@@ -16,15 +16,11 @@ public class JpaUserDetailsManager implements UserDetailsManager {
   @Autowired
   private AuthUserDetailsRepository repository;
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Optional<AuthUserDetails> byUsername = repository.findByUsername(username);
-    if (byUsername.isPresent()) {
-      System.out.println(byUsername.get());
-    }
+    byUsername.ifPresent(System.out::println);
     return byUsername.orElseThrow(() -> new UsernameNotFoundException("No user found with username = " + username));
   }
 
@@ -45,10 +41,17 @@ public class JpaUserDetailsManager implements UserDetailsManager {
     repository.delete(userDetails);
   }
 
+  /**
+   * This method assumes that both oldPassword and the newPassword params
+   * are encoded with configured passwordEncoder
+   *
+   * @param oldPassword the old password of the user
+   * @param newPassword the new password of the user
+   */
   @Override
   @Transactional
   public void changePassword(String oldPassword, String newPassword) {
-    AuthUserDetails userDetails = repository.findByPassword(passwordEncoder.encode(oldPassword))
+    AuthUserDetails userDetails = repository.findByPassword(oldPassword)
       .orElseThrow(() -> new UsernameNotFoundException("Invalid password "));
     userDetails.setPassword(newPassword);
     repository.save(userDetails);
