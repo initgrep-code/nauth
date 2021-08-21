@@ -1,6 +1,7 @@
 package com.initgrep.apps.nauth.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,7 +53,7 @@ public class JpaUserDetailsManager implements UserDetailsManager {
   @Transactional
   public void changePassword(String oldPassword, String newPassword) {
     AuthUserDetails userDetails = repository.findByPassword(oldPassword)
-      .orElseThrow(() -> new UsernameNotFoundException("Invalid password "));
+      .orElseThrow(() -> new BadCredentialsException("Invalid password provided"));
     userDetails.setPassword(newPassword);
     repository.save(userDetails);
   }
