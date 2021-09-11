@@ -21,11 +21,7 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getUsers(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("name ->"+authentication.getName());
-        System.out.println("authorities ->"+authentication.getAuthorities());
-        OAuth2User principal = (OAuth2User) authentication.getPrincipal();
-        System.out.println("attributes -> "+principal.getAttributes());
+
         return Arrays.asList(
                 new User("Irshad","irshad@gmail.com", "99065403980"),
                 new User("Ahmad","ahmad@gmail.com", "8971261271721"),
