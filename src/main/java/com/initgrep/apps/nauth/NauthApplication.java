@@ -10,4 +10,6 @@ public class NauthApplication {
 		SpringApplication.run(NauthApplication.class, args);
 	}
 
+
+
 }
