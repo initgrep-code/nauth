@@ -24,6 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
     private String jwkSetUri;
 
+
+/**
+    Add jwks-uri in the configuration DSL
+ */
+
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http
@@ -33,6 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .jwt().jwkSetUri(jwkSetUri);
 //    }
 
+/**
+    Custom instance of JwtDecoder
+ */
     @Override
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http
@@ -42,6 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .jwt().decoder(NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build());
 //    }
 
+/**
+    Add a custom JwtAuthenticationConverter.
+    IN this example, Default jwtAuthenticationConverter is used.
+ */
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests().anyRequest().authenticated()
@@ -50,6 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
     }
 
+/**
+    Configure Authorization such as change Role prefix and add a different claim name for scopes
+ */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
@@ -64,6 +79,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }
+
+    /**
+        Asisgn a custom JwtDecoder with RestOperation instance to provide a custom timeout.
+     */
 
     @Bean
     public JwtDecoder jwtDecoder(RestTemplateBuilder restTemplateBuilder) {
